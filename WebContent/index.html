@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Halo: myCSR</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <style>
+    .floatLeft { width: 50%; float: left; }
+	.floatRight {width: 50%; float: right; }
+	.container { overflow: hidden; }
+    </style>
+    
+    <script>
+
+    function gamertag(){
+        var gtag = document.gamertagForm.gtag.value;
+        $.ajax({
+            type: "GET",
+            url: "halo/myCSR/gamertag",
+            data: { gamertag: gtag},
+            success: function(data) {
+
+                var combinedList = data.split(",");
+                var ranks = null;
+            	var playLists = null;
+        		for(var i = 0; i < combinedList.length; i++){
+					combinedList[i] = combinedList[i].replace("[", "");
+					combinedList[i] = combinedList[i].replace("]", "");
+            	}
+				
+        		var list = "";
+            	for(var i = 0; i < combinedList.length; i++){
+                	if(i % 2 == 0){
+                		list += "<tr><td>" + combinedList[i] + "</td><td>" + combinedList[++i] + "</td></tr>";
+                   	}
+                	
+            		
+                }
+                $("#gamelist").empty();
+                $("#gamelist").append("<tr><td>Playlist</td><td>Rank</td></tr>");
+            	$("#gamelist").append(list);
+            }});
+    }
+  
+  </script>
+  </head>
+  
+  <body>
+
+  	<div class="container">
+   		<div class="jumbotron" align="center">
+      		<h1>Halo: myCSR</h1>
+      		
+      			<form name=gamertagForm action="#">
+					<input type="text" name="gtag" value="Gl4di4torRr">
+					<input class="btn btn-primary btn-lg" type="button" value="Find myCSR" onClick="gamertag();">
+			  	</form>
+      		
+	      		<table class="table" style="padding: 0; width:40%;">
+            		<tbody id="gamelist">
+            		</tbody>
+        		</table>
+      		
+   		</div>
+</div>
+   	
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
