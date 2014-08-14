@@ -33,6 +33,7 @@
             success: function(data) {
 
                 var combinedList = data.split(",");
+                var tempList = combinedList;
                 var ranks = null;
             	var playLists = null;
         		for(var i = 0; i < combinedList.length; i++){
@@ -40,13 +41,37 @@
 					combinedList[i] = combinedList[i].replace("]", "");
             	}
 				
-        		var list = "";
+				var playlistList = new Array();
+				var rankList = new Array();
+				var pCounter = 0;
+				var rCounter = 0;
             	for(var i = 0; i < combinedList.length; i++){
                 	if(i % 2 == 0){
-                		list += "<tr><td>" + combinedList[i] + "</td><td>" + combinedList[++i] + "</td></tr>";
-                   	}
+                    	playlistList[pCounter] = combinedList[i];
+                    	pCounter++;
+                    }
+                	else{
+                    	rankList[rCounter] = combinedList[i];
+                    	rCounter++;
+                    }
+                }
+				
+        		var list = "";
+            	for(var i = 0; i < playlistList.length; i++){
                 	
-            		
+                    var temp = parseInt(rankList[i]);
+                   	if(temp < 10){
+                   		list += "<tr><td>" + playlistList[i] + "</td><td>" + rankList[i] + "</td></tr>";
+                    }
+                   	else if(temp >= 10 && temp < 20){
+                   		list += "<tr class=\"success\"><td>" + playlistList[i] + "</td><td>" + rankList[i] + "</td></tr>";
+                    }
+                   	else if(temp >= 30 && temp < 40){
+                   		list += "<tr class=\"warning\"><td>" + playlistList[i] + "</td><td>" + rankList[i] + "</td></tr>";
+                    }
+                   	else if(temp >= 40){
+                   		list += "<tr class=\"danger\"><td>" + playlistList[i] + "</td><td>" + rankList[i] + "</td></tr>";
+                    }	
                 }
                 $("#gamelist").empty();
                 $("#gamelist").append("<tr><td>Playlist</td><td>Rank</td></tr>");
@@ -68,7 +93,7 @@
 					<input class="btn btn-primary btn-lg" type="button" value="Find myCSR" onClick="gamertag();">
 			  	</form>
       		
-	      		<table class="table" style="padding: 0; width:40%;">
+	      		<table class="table table-striped" style="padding: 0; width:40%;">
             		<tbody id="gamelist">
             		</tbody>
         		</table>
