@@ -54,7 +54,7 @@
                     	rCounter++;
                     }
                 }
-				
+
         		var list = "";
             	for(var i = 0; i < playlistList.length; i++){
                 	
@@ -76,10 +76,13 @@
                    		list += "<tr><td>" + playlistList[i] + "</td><td>" + rankList[i] + "</td></tr>";
                     }
                 }
+
                 $("#gamelist").empty();
-                $("#gamelist").append("<tr class=\"info\"><td>Playlist</td><td>Rank</td></tr>");
+                if(playlistList.length > 1){
+                    $("#gamelist").append("<tr class=\"info\"><td>Playlist</td><td>Rank</td></tr>");
+                }
                 if(combinedList.length == 1){
-					$("#gamelist").append("<tr class=\"danger\"><td>Invalid</td><td>Invalid</td></tr>");
+					$("#gamelist").append("<tr class=\"danger\"><td>Gamertag not found</td></tr>");
 				}
                 else{
                 	$("#gamelist").append(list);
@@ -97,7 +100,7 @@
    		<div class="jumbotron" align="center">
       		<h1>Halo: myCSR</h1>
       			<form name=gamertagForm action="#">
-					<input type="text" name="gtag" placeholder="Gl4di4torRr">
+					<input type="text" name="gtag" placeholder="Enter gamertag">
 					<input class="btn btn-primary btn-lg" type="button" value="Find myCSR" onClick="gamertag();">
 			  	</form>
       		

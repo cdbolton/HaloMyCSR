@@ -1,0 +1,14 @@
+*.class
+*~
+.idea
+*.iml
+# Package Files #
+out/
+*.war
+*.ear
+# Eclipse crap #
+.checkstyle
+.classpath
+.externalToolBuilders
+.project
+.settings
